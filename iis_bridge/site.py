@@ -240,3 +240,8 @@ def get_bindings(name):
             return bindings.split(',')
     return []
 
+def get_physical_path(name):
+    """ return physical path of site """
+    cmd = '%s list app /site.name:%s /path:"/" /xml | %s list vdir /in /text:physicalPath' % (config.APP_CMD, name, config.APP_CMD)
+    output = config.run(cmd, errMsg="You need elevated permissions.")
+    return output.replace("\r\n", "")
